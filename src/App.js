@@ -1,25 +1,33 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-  Route,
-} from "react-router-dom";
-import RootLayout from "./layouts/RootLayout";
-import Blog from "./pages/Blog";
-import NewBlog from "./pages/NewBlog";
-import Home from "./pages/Home";
+import React, { useState, useEffect } from "react";
+import AddContact from "./AddContact";
+import ContactList from "./ContactList";
+import Header from "./Header";
 
 function App() {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<RootLayout />}>
-        <Route path="home" element={<Home />} />
-        <Route path="blog" element={<Blog />} />
-        <Route path="newblog" element={<NewBlog />} />
-      </Route>
-    )
+  const LOCAL_STORAGE_KEY = "contacts";
+  const [contacts, setContacts] = useState([]);
+
+  const addContactHandler = (contact) => {
+    console.log(contact);
+    setContacts([...contacts, contact]);
+  };
+
+  useEffect(() => {
+    const retiveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (retiveContacts) setContacts(retiveContacts);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
+
+  return (
+    <div>
+      <Header />
+      <AddContact addContactHandler={addContactHandler} />
+      <ContactList contacts={contacts} />
+    </div>
   );
-  return <RouterProvider router={router} />;
 }
 
 export default App;
