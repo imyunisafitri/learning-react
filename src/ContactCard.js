@@ -7,7 +7,7 @@ const ContactCard = (props) => {
         <p>{email}</p>
       </div>
       <div className="delete">
-        <button>Delete</button>
+        <button onClick={() => props.clickHander(id)}>Delete</button>
       </div>
     </div>
   );
