@@ -1,4 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap");
 
 :root {
   --primary: #fea500;
@@ -7,8 +7,9 @@
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   background-color: var(--secondary);
   color: var(--main);
   font-family: "Rubik", sans-serif;
@@ -17,282 +18,133 @@ body {
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
-} */
-
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-}
-
-body {
-  min-height: 100vh;
-  font-family: "Open Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Navbar */
+nav {
   display: flex;
-  background-color: #efefef;
+  align-items: center;
+  justify-content: end;
+  margin: 0 auto;
+  /* border: 1px solid #ccc; */
+}
+nav h1 {
+  margin-right: auto;
+  border-bottom: 3px solid var(--primary);
+}
+nav a {
+  padding: 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  color: var(--main);
+}
+nav a.active {
+  background: var(--primary);
 }
 
-#root {
-  flex-grow: 1;
+/* page content */
+main {
+  margin: 40px auto;
+}
+
+/* help layout */
+.help-layout nav {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 30px;
+  margin: 30px 0;
 }
-
-.App {
-  width: 100%;
-  max-width: 800px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  border: 1px solid #333;
-  box-shadow: 0px 0px 15px gray;
-}
-
-.Header,
-.Footer {
-  width: 100%;
-  background-color: #66d8f5;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.Header h1 {
-  font-size: 1.5rem;
-}
-
-.Header svg {
-  font-size: 2rem;
-}
-
-.Footer {
-  padding: 0.75rem;
-  display: grid;
-  place-content: center;
-}
-
-.Nav {
-  width: 100%;
-  background-color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.searchForm {
-  width: 80%;
-  padding: 1rem 0 0 0.75rem;
-}
-
-.searchForm input[type="text"] {
-  font-family: "Open Sans", sans-serif;
-  width: 100%;
-  min-height: 48px;
-  font-size: 1rem;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  outline: none;
-}
-
-.searchForm label {
-  position: absolute;
-  left: -99999px;
-}
-
-.Nav ul {
-  color: #fff;
-  list-style-type: none;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-}
-
-.Nav li {
-  padding: 1rem;
-}
-
-.Nav li:hover,
-.Nav li:focus {
-  padding: 1rem;
-}
-
-.Nav li a {
-  color: #fff;
+.help-layout nav a {
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 4px;
   text-decoration: none;
 }
-
-.Nav li:hover,
-.Nav li:focus,
-.Nav li:hover a,
-.Nav li:focus a {
-  background-color: #eee;
-  color: #333;
+.help-layout nav a:hover {
+  border-color: var(--primary);
+}
+.help-layout nav a.active {
+  background: var(--primary);
 }
 
-.Nav li:hover a,
-.Nav li:focus a {
-  cursor: pointer;
+/* FAQ */
+.faq {
+  margin: 40px auto;
+}
+.question {
+  padding: 15px;
+  margin-top: 20px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9);
+  border-radius: 4px;
 }
 
-.Home,
-.NewPost,
-.PostPage,
-.About,
-.Missing {
-  width: 100%;
-  flex-grow: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  background-color: #fff;
+/* contact */
+.contact {
+  margin: 40px auto;
 }
 
-.post {
-  margin-top: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid lightgray;
+/* contact form */
+form {
+  margin-top: 30px;
+}
+form input,
+form label span,
+form textarea {
+  display: block;
+}
+form input,
+form textarea {
+  margin-bottom: 30px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 0;
+  width: 300px;
+  color: var(--secondary);
+}
+form label span {
+  margin-bottom: 10px;
 }
 
-.Home .post a {
+/* 404 */
+.rror {
+  padding: 10px;
+}
+.error p {
+  margin-bottom: 20px;
+}
+.error a {
+  text-decoration: none;
+  color: var(--secondary);
+  padding: 10px;
+  background-color: var(--main);
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/* careers list */
+.careers > a {
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 4px;
+  margin: 20px 0;
   text-decoration: none;
 }
-
-.Home .post a,
-.Home .post a:visited {
-  color: #000;
+.careers > a:hover p {
+  color: var(--primary);
+}
+.careers p {
+  margin: 0;
+}
+.careers > a p:last-child {
+  font-size: 0.8em;
+  color: #bbb;
 }
 
-.post:first-child {
-  margin-top: 0;
-}
-
-.post:last-child {
-  border-bottom: none;
-}
-
-.postDate {
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
-}
-
-.postBody {
-  margin: 1rem 0;
-}
-
-.newPostForm {
-  display: flex;
-  flex-direction: column;
-}
-
-.newPostForm label {
-  margin-top: 1rem;
-}
-
-.newPostForm input[type="text"],
-.newPostForm textarea {
-  font-family: "Open Sans", sans-serif;
-  width: 100%;
-  min-height: 48px;
-  font-size: 1rem;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  margin-right: 0.25rem;
-  outline: none;
-}
-
-.newPostForm textarea {
-  height: 100px;
-}
-
-.newPostForm button {
-  margin-top: 1rem;
-  height: 48px;
-  min-width: 48px;
-  border-radius: 10px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.Missing h2,
-.PostPage h2,
-.Missing p,
-.PostPage p {
-  margin-bottom: 1rem;
-}
-
-.PostPage button {
-  height: 48px;
-  min-width: 48px;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-  background-color: red;
-  color: #fff;
-  cursor: pointer;
-}
-
-.statusMsg {
-  margin-top: 2rem;
-}
-
-@media only screen and (min-width: 610px) {
-  html {
-    font-size: 22px;
-  }
-
-  .Header h1 {
-    font-size: 2rem;
-  }
-
-  .Nav {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .Nav ul {
-    text-align: right;
-  }
-
-  .Nav li:hover,
-  .Nav li:focus,
-  .Nav li:hover a,
-  .Nav li:focus a {
-    background-color: #eee;
-    color: #333;
-  }
-
-  .searchForm {
-    width: 50%;
-    padding: 0.5rem 0;
-  }
-
-  .searchForm input[type="text"] {
-    margin-left: 0.5rem;
-  }
-
-  .newPostForm textarea {
-    height: 300px;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  .Header svg {
-    font-size: 3rem;
-  }
+/* careers details */
+.career-details {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 4px;
+  margin: 20px 0;
 }

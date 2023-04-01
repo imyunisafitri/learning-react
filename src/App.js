@@ -1,97 +1,62 @@
-import Layout from './Layout';
-import Home from './Home';
-import NewPost from './NewPost';
-import PostPage from './PostPage';
-import About from './About';
-import Missing from './Missing';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 
-function App() {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "My First Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      id: 2,
-      title: "My 2nd Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      id: 3,
-      title: "My 3rd Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      id: 4,
-      title: "My Fourth Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    }
-  ])
-  const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [postTitle, setPostTitle] = useState('');
-  const [postBody, setPostBody] = useState('');
-  const navigate = useNavigate();
+//compponents
+//import Navbar from "./components/Navbar";
 
-  useEffect(() => {
-    const filteredResults = posts.filter((post) =>
-      ((post.body).toLowerCase()).includes(search.toLowerCase())
-      || ((post.title).toLowerCase()).includes(search.toLowerCase()));
+//pages
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Faq from "./pages/help/Faq";
+import Contact from "./pages/help/Contact";
+import NotFound from "./pages/NotFound";
+import Careers, {careersLoader} from "./careers/Careers";
+import CareersError from "./careers/CareersError";
+import { ContactAction } from "./pages/help/Contact";
 
-    setSearchResults(filteredResults.reverse());
-  }, [posts, search])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
-    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
-    const newPost = { id, title: postTitle, datetime, body: postBody };
-    const allPosts = [...posts, newPost];
-    setPosts(allPosts);
-    setPostTitle('');
-    setPostBody('');
-    navigate('/');
-  }
+//layout
+import RootLayout from "./layouts/RootLayout";
+import HelpLayout from "./layouts/HelpLayout";
+import CareersLayout from "./layouts/CareersLayout";
+import CareersDetail, { careersDetailsLoader } from "./careers/CareersDetail";
 
-  const handleDelete = (id) => {
-    const postsList = posts.filter(post => post.id !== id);
-    setPosts(postsList);
-    navigate('/');
-  }
 
-  return (
-    <Routes>
-      <Route path="/" element={<Layout
-        search={search}
-        setSearch={setSearch}
-      />}>
-        <Route index element={<Home posts={searchResults} />} />
-        <Route path="post">
-          <Route index element={<NewPost
-            handleSubmit={handleSubmit}
-            postTitle={postTitle}
-            setPostTitle={setPostTitle}
-            postBody={postBody}
-            setPostBody={setPostBody}
-          />} />
-          <Route path=":id" element={<PostPage
-            posts={posts}
-            handleDelete={handleDelete}
-          />} />
-        </Route>
-        <Route path="about" element={<About />} />
-        <Route path="*" element={<Missing />} />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route path="/" element={<Home />} />
+      <Route path="about" element={<About />} />
+
+      <Route path="help" element={<HelpLayout />}>
+        <Route path="faq" element={<Faq />} />
+        <Route path="contact" element={<Contact />} action={ContactAction}/>
       </Route>
-    </Routes>
-  );
-}
+
+      <Route path="careers" element={<CareersLayout />} errorElement={<CareersError />}>
+        <Route
+          index
+          element={<Careers/>}
+          loader={careersLoader}
+        />
+        <Route
+          path=":id"
+          element={<CareersDetail />}
+          loader={careersDetailsLoader}
+        />
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  )
+);
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;
